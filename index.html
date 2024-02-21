@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guarded Cloud</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Arimo:300,400,600,700&display=swap" rel="stylesheet">
+
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Arimo', sans-serif;
+    }
+    .logo {
+      width: 800%; 
+      height: auto; 
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo"><img src="/img/logo.png" style="width: 500%%; height: 200%%;"alt="" class="img-fluid"></a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="#home">Home</a></li>
+          <li><a class="getstarted scrollto" href="#start">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>The Secure Cloud Storage Platform</h1>
+          <h2 style="margin-top: 40px;">Experience the next level of cloud security with authorized keyword search and dual access control.<br>Safeguard your data like never before.</h2>
+          <div class="d-flex">
+            <a href="#start" class="btn-get-started scrollto">Get Started</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img">
+          <img src="/img/hero-img.png" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="file-upload" style="padding: 80px 0; background-color: #f9f9f9;">
+    <div class="container">
+      <form action="/upload" method="post" enctype="multipart/form-data" style="max-width: 500px; margin: 0 auto;">
+        
+        <h2 style="color: #3e4450; margin-bottom: 30px">Upload Your File</h2>
+        <div style="margin-bottom: 20px;">
+          <label for="file" style="display: block; margin-bottom: 10px; font-size: 16px; color: #3e4450;">Choose File</label>
+          <input type="file" class="form-control" id="file" name="file" style="display: block; width: 100%; padding: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #d1d5da; border-radius: 4px; background-color: #fff;">
+        </div>
+        <button type="submit" class="btn btn-primary" style="padding: 12px 30px; font-size: 16px; font-weight: 500; border-radius: 4px; background-color: #16df7e; color: #fff; transition: background-color 0.3s;">Submit</button>
+        
+        <div class="container" >
+          <h2 style="color: #3e4450; margin-bottom: 30px; margin-top: 40px;">Your files</h2>
+          <ul class="files">
+
+          <ul>
+      </div>
+      </form>
+    </div>
+  </section>
+
+</body>
+<script>
+  const data = async () => {
+    let url = "http://localhost:3000/files";
+    let a = await fetch(url);
+    let response = await a.json();
+    console.log(response.files);
+
+    let listHTML = "";
+    response.file.forEach(element => {
+        let urlParts = element.split('/');
+        let filename = urlParts[urlParts.length - 1];
+        listHTML += `<li><a href=${element} >${filename}</a></li>`;
+    });
+
+    document.querySelector(".files").innerHTML = listHTML;
+  }
+
+  data();
+</script>
+</html>
